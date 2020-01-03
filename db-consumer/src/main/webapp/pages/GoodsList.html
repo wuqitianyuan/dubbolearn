@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/js/dataTable/jquery.dataTables.min.css">
+    <!--<script type="text/javascript" src="/static/js/dataTable/jquery.js"></script>-->
+    <script type="text/javascript" src="/static/js/dataTable/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <center>
+        请选择商品分类
+        <select>
+            <option value="0">全部</option>
+        </select>
+        <table width="70%" border="1px" class="tablelist" id="example">
+            <thead>
+                <tr>
+                    <th>商品编号</th>
+                    <th>商品名称</th>
+                    <th>商品分类</th>
+                    <th>产地</th>
+                    <th>日期</th>
+                    <th>价格</th>
+                    <th>剩余数量</th>
+                    <th>购买</th>
+                </tr>
+            </thead>
+            <tbody id="tb">
+
+            </tbody>
+        </table>
+    </center>
+    <script type="text/javascript">
+        $(function () {
+            //自动触发ajax
+            $.ajax({
+                url:"/getGoods.do",
+                type:"post",
+                dataType:"JSON",
+                async:false,//关闭异步
+                success:function f(rs) {
+                    var content = "";
+                    for(var i in rs){
+                        content+="<tr><td>"+rs[i].id+"</td><td>"+rs[i].name+"</td><td>"+rs[i].sortName+"</td><td>"+rs[i].address+"</td><td>"+rs[i].createDate+"</td><td>"+rs[i].price+"</td><td>"+rs[i].remaining+"</td><td><a href='#'>购买</a></td></tr>"
+                    }
+                    $("#tb").append(content);
+            }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $("#example").dataTable({
+                "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+                "aLengthMenu" : [1,5, 10, 15], //更改显示记录数选项
+                "sPaginationType" : "full_numbers", //详细分页组，可以支持直接跳转到某页
+                "bAutoWidth" : true, //是否自适应宽度
+                //"bJQueryUI" : true,
+                "oLanguage": { //国际化配置
+                    "sProcessing" : "正在获取数据，请稍后...",
+                    "sLengthMenu" : "显示 _MENU_ 条",
+                    "sZeroRecords" : "没有您要搜索的内容",
+                    "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+                    "sInfoEmpty" : "记录数为0",
+                    "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+                    "sInfoPostFix" : "",
+                    "sSearch" : "搜索",
+                    "sUrl" : "",
+                    "oPaginate": {
+                        "sFirst" : "第一页",
+                        "sPrevious" : "上一页",
+                        "sNext" : "下一页",
+                        "sLast" : "最后一页"
+                    }
+                },
+            });
+        });
+    </script>
+</body>
+</html>

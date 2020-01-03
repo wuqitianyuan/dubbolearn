@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="db-consumer" />
+        <module name="db_providerone" />
+        <module name="db-commons" />
+        <module name="db_providertwo" />
+        <module name="db-pojo" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
